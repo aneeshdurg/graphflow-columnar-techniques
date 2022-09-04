@@ -27,7 +27,7 @@ source env.sh
 
 GrahflowDB takes as parameter the directory that contains several CSV files. There are 2 types of files: 1) *Vertex files* that contains a vertex per line in file and 2) *Edge files* containing an edge between two vertices. Each vertex/edge file corresponds to one vertex/edge label in the graph to load. 
 
-Dataset folder should have the following hierarchy:
+Dataset folder can have the following hierarchy:
 
     .
     ├── vertices                # All vertex files goes in here
@@ -45,14 +45,13 @@ The `metadata.json` maps the vertex/edge file to its corresponding label. It als
 `metadata.json` has the following format: 
 ```json
 {
-  "separator":  ",",
-  "vertexFileDescriptions": [
+  "nodeFileDescriptions": [
     {
       "filename": "vertices/v1.csv",
       "type": "PERSON" 
     }
   ],
-  "edgeFileDescriptions": [
+  "relFileDescriptions": [
     {
       "filename": "edges/e1.csv",
       "label": "KNOWS",
@@ -66,7 +65,7 @@ The `metadata.json` maps the vertex/edge file to its corresponding label. It als
 > `storeCompressed` indicates if the forward and backward adjacency list should be compressed. This is beneficial for relationships where the forward or backword cardinality can alse be 0. 
 
 ### Vertex file
-The first line is the header which specifies the vertex ID (strictly first) followed by property names with one of the valid datatype. Valid datatypes are `INT`, `DOUBLE`, `STRING` and `BOOLEAN`. Vertex id has a fixed type `NODE`. Each subsequent line is a vertex in graph data along with its properties or `NULL` value.
+The first line is the header which specifies the vertex ID (strictly first) followed by property names with one of the valid datatype. Valid datatypes are `INT`, `DOUBLE`, `STRING` and `BOOLEAN`. Vertex id has a fixed type `NODE`. Each subsequent line is a vertex in graph data along with its properties or `NULL` value. Note that the delimeter must be `,`.
 
 Example file
 ```csv
@@ -78,7 +77,7 @@ id:NODE,name:STRING,country_code:STRING,imdb_id:STRING,name_pcode_nf:STRING,name
 ```
 
 ### Edge file
-Similar organization and header as that of the vertex file. Only difference is that each line now contains reference to 2 vertex ID: one denotes the origin of the edge while other is the end.  
+Similar organization and header as that of the vertex file. Only difference is that each line now contains reference to 2 vertex ID: one denotes the origin of the edge while other is the end. Note that the delimeter must be `,`.
 
 Example file
 ```csv
